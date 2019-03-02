@@ -3,7 +3,8 @@
         <div class="login-title">linked auth in test</div>
         <div class="login-form">
             <img v-on:click="githubClick" src="../../../static/images/github.png" />
-            <label>{{step}}</label>
+            <div>{{step}}</div>
+            <div>{{userInfoStatus}}</div>
         </div>
     </div>
 </template>
@@ -23,8 +24,9 @@
               redirectUri: 'http://localhost:8080/authCallback',
               scope: 'r_liteprofile%20r_emailaddress%20w_share',
 
-              step: "wait for click linkedin icon",
-              linkedAuthCode: ''
+              step: 'wait for click linkedin icon',
+              linkedAuthCode: '',
+              userInfoStatus: ''
             }
         },
         components: {
@@ -32,14 +34,13 @@
       created: function(){
         		// 获取url里面的code
         		this.linkedAuthCode = this.getUrlData('code') || '';
-            console.log("this.linkedAuthCode is" + this.linkedAuthCode)
-            if (this.linkedAuthCode === '')
-            {
+            console.log("this.linkedAuthCode is " + this.linkedAuthCode)
+            if (this.linkedAuthCode === '') {
               return
             } else {
-              this.step = "request BE to get access token"
+              this.step = 'request BE to get access token'
+              this.authLinkedinCode(this.linkedAuthCode)
             }
-            this.authLinkedinCode(this.linkedAuthCode)
         },
         methods: {
             // github登录点击事件
@@ -51,9 +52,9 @@
                 '&scope=' + this.scope
             },
             getUrlData:function(name){
-            		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
-                var r = window.location.search.substr(1).match(reg);
-                if (r != null)
+              let reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+              const r = window.location.search.substr(1).match(reg);
+              if (r != null)
                 return unescape(r[2]);
                 return null;
             },
@@ -64,10 +65,17 @@
                 params: {
                   code
                 },
-                headers: {
-                  'Access-Control-Allow-Origin': '*'
-                },
                 method: 'get'
+              }).then(resp => {
+                this.step = 'Access token is got, please check status'
+
+                this.linkedAuthCode = ''
+
+                if (resp.data === false) {
+                  this.userInfoStatus = 'linkedin code is invalid, please re-login linked in'
+                } else {
+                  this.userInfoStatus = 'linkedin code is ok'
+                }
               })
             }
         }

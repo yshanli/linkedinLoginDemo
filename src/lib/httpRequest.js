@@ -21,9 +21,6 @@ class HttpRequest {
   getInsideConfig () {
     const config = {
       baseURL: this.baseUrl,
-      headers: {
-        //'Access-Control-Allow-Origin': '*'
-      },
       async:true,
       crossDomain:true,
     }
