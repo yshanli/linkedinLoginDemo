@@ -19,22 +19,8 @@ npm run build
 		|-- index.html                   // 部署用的静态文件
 		|-- static                       // 静态资源目录
 	|-- src                              // 源码目录
-	|   |-- components                   // 组件
-	|       |-- common                   // 公共组件
-	|           |-- Home.vue           	 // 公共路由入口
-	|           |-- Sidebar.vue          // 公共左边栏
 	|		|-- page                   	 // 主要路由页面
-	|           |-- Carousel.vue         // 轮播图
-	|           |-- Checkbox.vue          // checkbox
-	|           |-- ECharts.vue           // ECharts
 	|           |-- Login.vue          	 // 登录
-	|           |-- Input.vue            // 表单
-	|           |-- Qrcode.vue           // 二维码
-	|           |-- Radio.vue            // 表单
-	|           |-- Select.vue           // 表单
-	|           |-- Table1.vue           //表格1
-	|           |-- Table2.vue           // 表格2
-	|           |-- Table3.vue           // 表格3
 	|   |-- App.vue                      // 页面入口文件
 	|   |-- main.js                      // 程序入口文件，加载各种公共组件
 	|-- .babelrc                         // ES6语法编译配置
