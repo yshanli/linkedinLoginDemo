@@ -21,7 +21,7 @@
               //linked in config:
               clientId: '86bhwn2dujtvth',
               responseType: 'code',
-              redirectUri: 'http://localhost:8080/authCallback',
+              redirectUri: 'http://localhost:8081/authCallback',
               scope: 'r_liteprofile%20r_emailaddress%20w_share',
 
               step: 'wait for click linkedin icon',
@@ -61,7 +61,7 @@
             authLinkedinCode: function (code) {
               console.info('send request to BE for auth code')
               axios.request({
-                url: 'linkedInAccessToken',
+                url: 'socialLogin/linkedInAuth',
                 params: {
                   code
                 },
